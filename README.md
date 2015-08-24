@@ -2,6 +2,8 @@
 > Turn function into a promise
 
 ## Install
+
+[blog post](http://www.mattgreer.org/articles/promises-in-wicked-detail/)
 ```
 $ npm install --save p-romise
 ```
@@ -23,7 +25,6 @@ WrapPromise(function(resolve){
 ## API
 
 ## .Wrap(myFunction(resolve))
-
 > The resulting promise is NOT chainable
 
 ```javascript
@@ -38,3 +39,6 @@ WrapPromise(function(resolve){
   console.log(result);
 });
 ```
+
+## Inspiration
+> Inspired by ["JavaScript Promises ... In Wicked Detail"](http://www.mattgreer.org/articles/promises-in-wicked-detail/) by Matt Greer
