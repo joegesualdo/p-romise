@@ -71,6 +71,15 @@ function ChainablePromise(fn) {
     }
   }
 
+  function reject(reason) {
+    state = 'rejected';
+    value = reason;
+
+    if(deferred) {
+      handle(deferred);
+    }
+  }
+
   // The handler object that we pass in the this function 
   //   carries around both an onResolved callback as well as 
   //   a reference to resolve(). There is more than one copy of resolve() 
@@ -83,54 +92,69 @@ function ChainablePromise(fn) {
       return;
     }
 
+    // You can choose to pass a callback to .then() function. But if you leave
+    //   off the callback, the promise resolves to the same value as the previous promise
     if(!handler.onResolved) {
       handler.resolve(value);
       return;
     }
 
     // concluding the previous promise 
-    deferred.onResolved(value, deferred.resolve);
+    if(typeof(value) == 'object' && Object.getPrototypeOf(value) == "Error" && value){
+      console.log(handler)
+      handler.onReject(value);
+    } else {
+      console.log("Success")
+      handler.onResolved(value, handler.resolve, handler.reject);
+    }
   }
 
   // then() always returns a promise 
-  this.then = function(onResolved) {
-    return new ChainablePromise(function(resolve) {
+  this.then = function(onResolved, onReject) {
+    return new ChainablePromise(function(resolve, reject) {
       handle({
         onResolved: onResolved,
-        resolve: resolve
+        onReject: onReject,
+        resolve: resolve,
+        reject: reject 
       });
     });
   };
 
-  fn(resolve);
+  fn(resolve, reject);
 }
 
 var WrapChainablePromise = function(callback){
-  return new ChainablePromise(function(resolveFn){
-    callback(resolveFn)
+  return new ChainablePromise(function(resolveFn, rejectFn){
+    callback(resolveFn, rejectFn)
   });
 }
 
-WrapChainablePromise(function(resolve){
+WrapChainablePromise(function(resolve, reject){
   setTimeout(function(){
-    resolve(['joe', 'mike'])
+    // resolve(['joe', 'mike'])
+    resolve(44)
   }, 1000)
-}).then(function(val, resolve){
-  console.log(val);
+}).then(function(val, resolve, reject){
+  var err =new Error("Error 1")
   setTimeout(function(){
-    resolve(23)
+    reject(err)
   }, 5000)
-}).then(function(val,resolve){
-  console.log(val);
+}, function(err){
+  console.log("errrrooorrr")
+}).then(function(val, resolve, reject){
+  var err = new Error("Error 2")
   setTimeout(function(){
-    resolve("woowee")
+    reject(err)
   }, 9000)
-}).then(function(val){
-  console.log(val);
-  setTimeout(function(){
-    console.log('woo')
-  }, 1000)
-});
+}, function(err){
+  console.log("errrrooorrr")
+})
+// }).then(function(val, reject){
+//   setTimeout(function(){
+//     console.log('woo')
+//   }, 1000)
+// });
 
 var pRomise = {
   Wrap: WrapPromise,
