@@ -46,6 +46,9 @@ WrapPromise(function(resolve){
 ##.then(myfunction(val, resolve, reject))
 
 ```javascript
+var pRomise = require("p-romise");
+var WrapChainablePromise = pRomise.WrapChainable;
+
 WrapChainablePromise(function(resolve, reject){
   setTimeout(function(){
     resolve(32)

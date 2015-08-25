@@ -1,4 +1,4 @@
-function iPromise(fn) {
+function PRomise(fn) {
   // Promises have state. We need to know what state they are in before 
   //   proceeding, and make sure we move through the states correctly.
   // A promise can be pending waiting for a value, or resolved with a value.
@@ -41,12 +41,12 @@ function iPromise(fn) {
 }
 
 var WrapPromise = function(callback){
-  return new iPromise(function(resolveFn){
+  return new PRomise(function(resolveFn){
     callback(resolveFn)
   });
 }
 
 module.exports = {
-  iPromise: iPromise,
+  PRomise: PRromise,
   WrapPromise: WrapPromise
 }
