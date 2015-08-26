@@ -47,6 +47,6 @@ var WrapPromise = function(callback){
 }
 
 module.exports = {
-  PRomise: PRromise,
+  PRomise: PRomise,
   WrapPromise: WrapPromise
 }
