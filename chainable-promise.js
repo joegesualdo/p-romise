@@ -1,3 +1,5 @@
+var isError = require("is-an-error");
+
 function ChainablePromise(fn) {
   var state = 'pending';
   var value;
@@ -41,7 +43,7 @@ function ChainablePromise(fn) {
     }
 
     // concluding the previous promise 
-    if(typeof(value) == 'object' && Object.getPrototypeOf(value) == "Error" && value){
+    if(isError(value)){
       handler.onReject(value);
     } else {
       handler.onResolved(value, handler.resolve, handler.reject);
