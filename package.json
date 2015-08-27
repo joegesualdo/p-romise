@@ -1,10 +1,14 @@
 {
   "name": "p-romise",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A simple promise wrapper",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joegesualdo/p-romise"
   },
   "author": "Joe Gesualdo",
   "license": "MIT",
