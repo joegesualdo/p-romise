@@ -3,7 +3,6 @@
 
 ## Install
 
-[blog post](http://www.mattgreer.org/articles/promises-in-wicked-detail/)
 ```
 $ npm install --save p-romise
 ```
