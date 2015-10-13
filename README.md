@@ -23,7 +23,7 @@ WrapPromise(function(resolve){
 
 ## API
 
-## .Wrap(myFunction(resolve))
+## `Wrap(myFunction(resolve))`
 > The resulting promise is NOT chainable
 
 ```javascript
@@ -39,10 +39,10 @@ WrapPromise(function(resolve){
 });
 ```
 
-## .WrapChainable(myFunction(resolve, reject))
+## `WrapChainable(myFunction(resolve, reject))`
 > The resulting promise is chainable
 
-##.then(myfunction(val, resolve, reject))
+## `then(myfunction(val, resolve, reject))`
 
 ```javascript
 var pRomise = require("p-romise");
